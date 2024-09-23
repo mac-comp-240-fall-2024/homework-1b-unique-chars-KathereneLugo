@@ -67,6 +67,9 @@ bool hasUniqueChars(char * inputStr) {
   // if a bit at a position is 1, then we have seen that character
   unsigned long checkBitsA_z = 0;   // for checking A through z and {|}~
   unsigned long checkBitsexcl_amp =0;  // for checking ! though @ 
+  unsigned long pos;
+  unsigned long x;
+  char *pos_bin;
 
   char nextChar;         // next character in string to check
 
@@ -85,13 +88,47 @@ bool hasUniqueChars(char * inputStr) {
   strcpy(debug_str_excl_amp, "checkBitsexcl_amp before: \n");
   seeBits(checkBitsexcl_amp, debug_str_excl_amp);
   // -------------------------------------------------------------
+  int len = strlen(inputStr);
 
   // TODO: Declare additional variables you need here
 
   
-  for(i = 0; i < strlen(inputStr); i++) {
+  for(i = 0; i < len; i++) {
     nextChar = inputStr[i];
-    
+    printf("nextchar int value: %d\n", nextChar);
+    if(nextChar >= 65 && nextChar <= 126){
+      pos = 1;
+      pos = pos << (nextChar-65);
+      printf("nextchar int value: %d\n", nextChar);
+      pos_bin = long_to_bin_str(pos);
+      printf("pos: %s\n", pos_bin);
+      x = pos & checkBitsA_z;
+      printf("pos x: %ld\n", x);
+      if(x == 0){
+        printf("nextchar int value: %d\n", nextChar);
+        checkBitsA_z = pos | checkBitsA_z;
+      }
+      else {
+        printf("nextchar else int value: %d\n", nextChar);
+        return false;
+      }
+    }
+    else if (nextChar >= 33 && nextChar <= 64){
+      printf("nextchar int value: %d\n", nextChar);
+      pos = 1;
+      pos = pos << (nextChar-33);
+      pos_bin = long_to_bin_str(pos);
+      printf("pos: %s\n", pos_bin);
+      if(pos & checkBitsexcl_amp == 0){
+        checkBitsexcl_amp = pos | checkBitsexcl_amp;
+      }
+      else {
+        return false;
+      }
+    }
+    else if(nextChar == ' '){
+        continue;
+      }
     // TODO: Add your code here to check nextChar, see if it is a duplicate, and update the checkBits variables
 
     // -------------------------------------------------------------

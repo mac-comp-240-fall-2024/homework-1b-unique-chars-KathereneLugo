@@ -56,6 +56,9 @@ int main() {
   // NOTE: if you add a \n to any tests, this should cause the
   //       exit failure given. Keep this test last so you can check 
   //       that others pass or fail as you expect them to.
+  // strcpy(string3, "a b cc\n");
+  // ok = hasUniqueChars(string3);
+
   strcpy(string3, "a b cc\n");
   ok = hasUniqueChars(string3);
   // other examples that should fail that you can place in strings
