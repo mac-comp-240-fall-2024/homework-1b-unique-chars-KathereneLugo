@@ -2,7 +2,7 @@
  * hasUniqueChars.c
  * 
  * Function and helper function code with ultimate goal of checking for duplicate characters
- * in a given string.
+ * in a given string. 
  * 
  * Author: Katherene Lugo
  */

@@ -1,7 +1,7 @@
 /*
  * Katherene Lugo
  This file contains several test cases for hasUniqueChars function
- from hasUniqueChars.c
+ from hasUniqueChars.c 
  */
 
 #include <stdio.h>    // printf
