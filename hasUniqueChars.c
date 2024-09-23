@@ -1,7 +1,8 @@
 /*
  * hasUniqueChars.c
  * 
- * TODO: replace this line with lines containing a description
+ * Function and helper function code with ultimate goal of checking for duplicate characters
+ * in a given string.
  * 
  * Author: Katherene Lugo
  */
@@ -54,8 +55,15 @@ void checkInvalid(char * inputStr) {
 
 
 /*
- * TODO: Replace this code by a good description this function takes in, does and returns.
- * Include the error conditions that cause it to exit with failure.
+ * This function takes an input string (pointer to a sequence of characters)
+ * and iterates through its characters, checking for duplicates. The function
+ * checks which range of printable characters it is currently iterating through
+ * using 2 unsigned long. Depending on which is the current range, The function 
+ * tracks which characters have not been seen before and uses bitwise operators
+ * to keep track of them once they are seen. If the character is a space, the 
+ * program continues normally. Otherwise, the chracter has been seen before
+ * and the program returns the boolean false OR the chracter is one that
+ is an invalid input string ex: \n \t \r
  */
 bool hasUniqueChars(char * inputStr) {
   // bail out quickly if any invalid characters
@@ -66,84 +74,36 @@ bool hasUniqueChars(char * inputStr) {
   // unsigned long can handle 64 different chars in a string
   // if a bit at a position is 1, then we have seen that character
   unsigned long checkBitsA_z = 0;   // for checking A through z and {|}~
-  unsigned long checkBitsexcl_amp =0;  // for checking ! though @ 
+  unsigned long checkBitsexcl_amp = 0;  // for checking ! though @ 
   unsigned long pos;
   unsigned long x;
-  char *pos_bin;
 
   char nextChar;         // next character in string to check
-
-  // -------------------------------------------------------------
-  // This section contains code to display the initial values of checkBitsA_z
-  // and checkBitsexcl_amp, for debugging purposes. 
-  // It also illustrates how to use the seeBits function for debugging.
-  // Printed values should initially be all zeros
-  // TODO: remove or comment out this code when satisfied of function correctness
-  
-  char debug_str_A_z[128];
-  strcpy(debug_str_A_z, "checkBitsA_z before: \n");
-  seeBits(checkBitsA_z, debug_str_A_z);
-  
-  char debug_str_excl_amp[128];
-  strcpy(debug_str_excl_amp, "checkBitsexcl_amp before: \n");
-  seeBits(checkBitsexcl_amp, debug_str_excl_amp);
-  // -------------------------------------------------------------
   int len = strlen(inputStr);
-
-  // TODO: Declare additional variables you need here
 
   
   for(i = 0; i < len; i++) {
     nextChar = inputStr[i];
-    printf("nextchar int value: %d\n", nextChar);
     if(nextChar >= 65 && nextChar <= 126){
       pos = 1;
       pos = pos << (nextChar-65);
-      printf("nextchar int value: %d\n", nextChar);
-      pos_bin = long_to_bin_str(pos);
-      printf("pos: %s\n", pos_bin);
       x = pos & checkBitsA_z;
-      printf("pos x: %ld\n", x);
       if(x == 0){
-        printf("nextchar int value: %d\n", nextChar);
         checkBitsA_z = pos | checkBitsA_z;
-      }
-      else {
-        printf("nextchar else int value: %d\n", nextChar);
+      }else {
         return false;
       }
-    }
-    else if (nextChar >= 33 && nextChar <= 64){
-      printf("nextchar int value: %d\n", nextChar);
+    }else if (nextChar >= 33 && nextChar <= 64){
       pos = 1;
       pos = pos << (nextChar-33);
-      pos_bin = long_to_bin_str(pos);
-      printf("pos: %s\n", pos_bin);
-      if(pos & checkBitsexcl_amp == 0){
+      if((pos & checkBitsexcl_amp) == 0){
         checkBitsexcl_amp = pos | checkBitsexcl_amp;
-      }
-      else {
+      }else {
         return false;
       }
-    }
-    else if(nextChar == ' '){
+    }else if(nextChar == ' '){
         continue;
       }
-    // TODO: Add your code here to check nextChar, see if it is a duplicate, and update the checkBits variables
-
-    // -------------------------------------------------------------
-    // Below this are examples of debugging print statements you could use
-    // Move/use as makes sense for you!
-    // Modify to work on checkBitsexcl_amp
-    // TODO: Comment out or remove when your function works correctly
-    printf("nextchar int value: %d\n", nextChar);
-    char char_str[2] = "\0";
-    char_str[0] = nextChar;
-    strcpy(debug_str_A_z, "nextchar: ");
-    strcat(debug_str_A_z, char_str);
-    strcat(debug_str_A_z,", checkBitsA_z: \n");
-    seeBits(checkBitsA_z, debug_str_A_z);
-    // ------------------------------------------------------------- 
   }
 
   // if through all the characters, then no duplicates found
