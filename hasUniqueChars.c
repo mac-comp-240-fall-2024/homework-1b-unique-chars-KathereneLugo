@@ -3,7 +3,7 @@
  * 
  * TODO: replace this line with lines containing a description
  * 
- * Author: 
+ * Author: Katherene Lugo
  */
 
 #include <stdio.h>  // fprintf, printf
@@ -32,8 +32,7 @@ void seeBits(unsigned long value, char *debug_text) {
 }
 
 
-// TODO: Read this carefully to see how to loop over characters of a string
-// TODO: (Remove TODOs once you have completed the task they describe)
+
 /*
  * Given an input string of chars, check for any non-printing
  * characters and print an error and exit if the string has any.
@@ -92,6 +91,7 @@ bool hasUniqueChars(char * inputStr) {
   
   for(i = 0; i < strlen(inputStr); i++) {
     nextChar = inputStr[i];
+    
     // TODO: Add your code here to check nextChar, see if it is a duplicate, and update the checkBits variables
 
     // -------------------------------------------------------------
